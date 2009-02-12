@@ -1,0 +1,47 @@
+startshape road_top
+
+rule road_top{
+	road{ sat 0.5 }
+}
+
+/* straight */
+rule road{
+	SQUARE{ s 1 0.8 b 1 } 
+	road{ x 1 hue 2 }
+}
+
+/* turn left */
+rule road 0.03 {
+	SQUARE{ s 0.8 b 1 }
+	SQUARE{ x -0.103 s 0.8 b 1 }
+	SQUARE{ y 0.103 s 0.8 b 1 }
+	road{ y 1 r 90 hue 2}
+}
+
+/* turn right */
+rule road 0.03{
+	SQUARE{ s 0.8 b 1}
+	SQUARE{ x -0.103 s 0.8 b 1 }
+	SQUARE{ y -0.103 s 0.8 b 1 }
+	road{ y -1 r -90 hue 2}
+}
+
+/* T junction */
+rule road 0.006{
+	SQUARE{ x -0.103 s 0.8 b 1 }
+	SQUARE{ s 0.8 1 b 1 }
+	road{ y 1 r 90 hue 2}
+	road{ y -1 r -90 hue 2}
+}
+
+/* cross junction */
+rule road 0.007{
+	SQUARE{ s 0.8 1 b 1 }
+	SQUARE{ s 1 0.8 b 1 }
+	road{ x 1 hue 2}
+	road{ y 1 r 90 hue 2}
+	road{ y -1 r -90 hue 2}
+}
+
+/* end */
+rule road 0.02{}
