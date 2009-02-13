@@ -1,0 +1,51 @@
+startshape start
+
+rule start{
+	random_walk{ b 0.7 sat 0.5 hue 500 }
+	random_walk{ x 10 y -20 b 0.7 sat 0.5 hue 300 }
+	random_walk{ x -15 y 20 b 0.7 sat 0.5 hue 200 }
+	random_walk{ x -15 y 20 b 0.7 sat 0.5 hue 400 }
+	random_walk{ x -15 y 20 b 0.7 sat 0.5 hue 000 }
+	random_walk{ x -15 y 20 b 0.7 sat 0.5 hue 900 }
+
+/*
+	start_line{ b 0.7 sat 0.5 hue 500 }
+	start_line{ x 30 y -30 b 0.7 sat 0.5 hue 300 flip 15 }
+	start_line{ x 50 y 20 b 0.7 sat 0.5 hue 200 flip -45 }
+*/
+}
+
+rule random_walk{ random_walk{ r 60 } }
+rule random_walk{ random_walk{ y 3 } }
+rule random_walk 0.1 { start_line{} }
+
+rule start_line{
+	station{}
+	rail{}
+}
+
+rule station{
+	CIRCLE{ s 1.5  z 1  }
+	CIRCLE{ s 1 b 1 sat -1 z 2 }
+}
+
+/* go */
+rule rail 40 {
+	CIRCLE{ b -1 z 0 b 0.6 sat 0.3 }
+	rail{ x 0.1 } 
+}
+
+/* station */
+rule rail 0.3 { station{} rail{ x 0.1 } }
+
+/* turn */
+rule rail 0.04 {	rail{ r 90 } }
+rule rail 0.04 {	rail{ r -90 } }
+rule rail 0.1 {	rail{ r 30 } }
+rule rail 0.1 {	rail{ r 60 } }
+rule rail 0.1 {	rail{ r -30 } }
+rule rail 0.1 {	rail{ r -60 } }
+
+/* end */
+rule rail 0.05{ station{} }
+
