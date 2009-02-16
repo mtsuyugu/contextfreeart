@@ -1,0 +1,80 @@
+startshape top
+
+background{
+    h 119.18 sat 0.6667 b -0.4
+}
+
+rule top{
+    circuit{ skew 40 0 s 1 0.6 }
+}
+
+rule circuit{
+    random_walk{}
+    start{}
+    random_walk{}
+    start{}
+}
+
+rule random_walk{ random_walk{ r 90 } }
+rule random_walk{ random_walk{ y 2 } }
+rule random_walk 0.05 {}
+
+rule start{
+    line{}
+}
+
+rule hole{
+    CIRCLE{ s 0.8 b 0.7 sat 0 }
+    CIRCLE{ s 0.4 b 1 }
+}
+
+rule connect{
+    SQUARE{ y 0.5 s 0.3 1 z -1 b 0.7 sat 0 }
+}
+
+/* nomal */
+rule line 2 {
+    hole{}
+    connect{}
+    line{ y 1 }
+}
+
+/* not connect */
+rule line 0.3 {
+    hole{}
+    hole{ y 1 }
+    connect{ y 1 }
+    line{ y 2 }
+}
+
+/* skip 1 block */
+rule line 0.3 {
+    hole{}
+    hole{ y 2 }
+    connect{ y 2 }
+    line{ y 3 }
+}
+
+/* skip 2 block */
+rule line 0.2 {
+    hole{}
+    hole{ y 3 }
+    connect{ y 3 }
+    line{ y 4 }
+}
+
+/* skip (1, 1) block */
+rule line 0.2 {
+    hole{}
+    hole{ x 1 y 1 }
+    connect{ x 1 y 1 }
+    line{ x 1 y 2 }
+}
+
+rule line{ line{ r -90 } } /* turn left */
+rule line{ line{ r 90 } }  /* turn right */
+rule line 0.01{            /* T-shape */
+    line{ r 90 }
+    line{ r -90 }
+}
+rule line 0.1{ hole{} } /* end */
